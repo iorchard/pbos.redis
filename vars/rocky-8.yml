@@ -1,0 +1,20 @@
+---
+packages:
+  - "@redis:6"
+  - sysfsutils
+
+sysctl_conf:
+  - {name: "vm.overcommit_memory", value: "1"}
+
+systemd_conf:
+  - {dest: "/etc/systemd/system/redis-disable-thp.service", owner: "root", group: "root", mode: "0644" }
+
+service_conf:
+  - {dest: "/etc/redis.conf", owner: "{{ service_name }}", group: "root", mode: "0640" }
+  - {dest: "/etc/redis-sentinel.conf", owner: "{{ service_name }}", group: "root", mode: "0640" }
+
+systemd_service_name:
+  - redis-disable-thp.service
+  - redis.service
+  - redis-sentinel.service
+...

@@ -1,0 +1,14 @@
+bind {{ ansible_host }}
+port {{ redis_sentinel_port }}
+requirepass {{ redis_sentinel_password }}
+sentinel monitor {{ redis_master_group_name }} {{ redis_master_ip }} {{ redis_port }} 2
+sentinel auth-pass mymaster {{ redis_password }}
+sentinel down-after-milliseconds {{ redis_master_group_name }} {{ redis_down_after_milliseconds }}
+sentinel parallel-syncs {{ redis_master_group_name }} 1
+sentinel failover-timeout {{ redis_master_group_name }} 180000
+sentinel deny-scripts-reconfig yes
+daemonize no
+logfile /var/log/redis/sentinel.log
+dir /tmp
+protected-mode no
+supervised systemd

@@ -1,0 +1,10 @@
+---
+service_name: "redis"
+redis_master_ip: "{{ hostvars[groups['redis'][0]].ansible_host }}"
+redis_port: 6379
+redis_sentinel_port: 26379
+redis_password: ~
+redis_sentinel_password: ~
+redis_master_group_name: "mymaster"
+redis_down_after_milliseconds: 5000
+...

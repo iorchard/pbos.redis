@@ -1,0 +1,12 @@
+[Unit]
+Description=Disable Transparent Huge Page (THP) for redis service
+Before=redis.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/sh -c "echo madvise > /sys/kernel/mm/transparent_hugepage/enabled"
+
+[Install]
+WantedBy=multi-user.target
+
